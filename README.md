@@ -8,7 +8,7 @@
 2. Run the python file for prediction of domain specific masked word
 
 
-```python 2_run_mlm_pred.py False "I absolutely love the [MASK]"```
+```python 2_run_mlm_pred.py True "I absolutely love the [MASK]"```
 
 
 3. Expected output("design")
