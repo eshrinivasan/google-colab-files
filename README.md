@@ -3,7 +3,7 @@
 
 1. Run the python file for training bert with domain specific data
 
-```python 1_run_bert_2ndlevel_trainer.py --train_file "./output_5.txt" --model_name_or_path bert-large-uncased --do_train --output_dir ./train_data --line_by_line True```
+```python 1_run_bert_2ndlevel_trainer.py --train_file "./output_lt_10.txt" --model_name_or_path bert-large-uncased --do_train --output_dir ./train_data --line_by_line True```
 
 2. Run the python file for prediction of domain specific masked word
 
