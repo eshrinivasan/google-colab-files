@@ -1,8 +1,10 @@
 # Instructions for running the code in Azure ML
 
 ## Install pip dependencies
+```
 !pip install datasets
 !pip install git+git://github.com/huggingface/transformers/
+```
 
 ## Clone the repo
 !npx degit https://github.com/eshrinivasan/google-colab-files -f
