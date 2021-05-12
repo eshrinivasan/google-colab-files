@@ -1,9 +1,16 @@
-# google-colab-files
+# Instructions for running the code in Azure ML
 
+## Install pip dependencies
+!pip install datasets
+!pip install git+git://github.com/huggingface/transformers/
 
+## Clone the repo
+!npx degit https://github.com/eshrinivasan/google-colab-files -f
+
+## Execute the following commands 
 1. Run the python file for training bert with domain specific data
 
-```python 1_run_bert_2ndlevel_trainer.py --train_file "./output_5.txt" --model_name_or_path bert-large-uncased --do_train --output_dir ./train_data --line_by_line True```
+```python 1_run_bert_2ndlevel_trainer.py --train_file "./output_lt_10.txt" --model_name_or_path bert-large-uncased --do_train --output_dir ./train_data --line_by_line True```
 
 2. Run the python file for prediction of domain specific masked word
 
