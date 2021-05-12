@@ -2,13 +2,13 @@ import sys
 from transformers import AutoTokenizer, AutoModelForMaskedLM
 import torch
 
-useSecondLevelPretraining = sys.argv[1] or True
-input_text = sys.argv[2] or "this [MASK] is quite reflective"
+useSecondLevelPretraining = sys.argv[1]
+input_text = sys.argv[2]
 
 
 if(useSecondLevelPretraining):
-  tok = AutoTokenizer.from_pretrained("./train_data/checkpoint-1500")
-  model = AutoModelForMaskedLM.from_pretrained("./train_data/checkpoint-1500")
+  tok = AutoTokenizer.from_pretrained("./train_data_4k/checkpoint-1500")
+  model = AutoModelForMaskedLM.from_pretrained("./train_data_4k/checkpoint-1500")
 else:
   tok = AutoTokenizer.from_pretrained("bert-large-uncased")
   model = AutoModelForMaskedLM.from_pretrained("bert-large-uncased")
