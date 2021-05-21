@@ -7,7 +7,7 @@
 ```
 
 ## Clone the repo
-!npx degit https://github.com/eshrinivasan/secondlevel-pretraining-mlm -f
+!npx degit https://github.wdf.sap.corp/sentient-commerce/secondlevel-pretraining-mlm -f
 
 ## Execute the following commands 
 1. Run the python file for training bert with domain specific data
@@ -34,6 +34,12 @@ display
 surface
 case
 ```
+
+4. Run the python file to do sentiment analysis on Azure ML
+
+```3_run_sentiment_analysis_2ndlevelbert.py```
+
+A model is generated in the binary format at the end of the train/test exercise
 
 ### Reference:
 
