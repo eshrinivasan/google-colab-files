@@ -7,7 +7,7 @@
 ```
 
 ## Clone the repo
-!npx degit https://github.com/eshrinivasan/google-colab-files -f
+!npx degit https://github.com/eshrinivasan/secondlevel-pretraining-mlm -f
 
 ## Execute the following commands 
 1. Run the python file for training bert with domain specific data
