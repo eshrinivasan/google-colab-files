@@ -1,4 +1,4 @@
-# https://github.com/huggingface/transformers/blob/master/examples/pytorch/language-modeling/run_mlm.py
+#Reference: https://github.com/huggingface/transformers/blob/master/examples/pytorch/language-modeling/run_mlm.py
 
 #!/usr/bin/env python
 # coding=utf-8
@@ -50,7 +50,7 @@ from transformers.utils import check_min_version
 
 
 # Will error if the minimal version of Transformers is not installed. Remove at your own risks.
-check_min_version("4.6.0.dev0")
+check_min_version("4.7.0.dev0")
 
 logger = logging.getLogger(__name__)
 MODEL_CONFIG_CLASSES = list(MODEL_FOR_MASKED_LM_MAPPING.keys())

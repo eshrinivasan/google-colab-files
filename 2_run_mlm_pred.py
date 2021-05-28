@@ -1,3 +1,5 @@
+#Reference: https://github.com/tanmayb123/BertPreTraining/blob/master/mlm_pred.py
+
 import sys
 from transformers import AutoTokenizer, AutoModelForMaskedLM
 import torch

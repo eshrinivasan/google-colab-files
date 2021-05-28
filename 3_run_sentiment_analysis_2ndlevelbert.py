@@ -18,14 +18,21 @@ plt.xlabel('review score');
 
 def to_sentiment(rating):
   rating = int(rating)
-  if rating <= 2:
-    return 0
-  elif rating == 3:
-    return 1
-  else:
-    return 2
+  return rating - 1
+
+# def to_sentiment(rating):
+#   rating = int(rating)
+#   if rating <= 2:
+#     return 0
+#   elif rating == 3:
+#     return 1
+#   else:
+#     return 2
+
 df['sentiment'] = df.score.apply(to_sentiment)
-class_names = ['negative', 'neutral', 'positive']
+print("------------")
+print(df['sentiment'])
+class_names = [0,1,2,3,4] #['negative', 'neutral', 'positive'] #[1,2,3,4,5] #[0,1,2,3,4] #
 ax = sns.countplot(df.sentiment)
 plt.xlabel('review sentiment')
 ax.set_xticklabels(class_names);
@@ -35,6 +42,7 @@ from transformers import BertModel, BertTokenizer, AdamW, get_linear_schedule_wi
 import torch
 
 PRE_TRAINED_MODEL_NAME = './train_data_28k/checkpoint-2500'
+#PRE_TRAINED_MODEL_NAME = 'bert-large-uncased'
 tokenizer = BertTokenizer.from_pretrained(PRE_TRAINED_MODEL_NAME)
 
 sample_txt = 'When was I last outside? I am stuck at home for 2 weeks.'
@@ -80,13 +88,14 @@ sns.distplot(token_lens)
 plt.xlim([0, 256]);
 plt.xlabel('Token count');
 
+
 ### Create a PyTorch dataset.
 
 from torch import nn, optim
 from torch.utils.data import Dataset, DataLoader
 from sklearn.model_selection import train_test_split
 RANDOM_SEED = 42
-BATCH_SIZE = 16
+BATCH_SIZE = 8
 MAX_LEN = 160
 
 
@@ -164,7 +173,7 @@ from collections import defaultdict
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-PRE_TRAINED_MODEL_NAME = './train_data_28k/checkpoint-2500'
+PRE_TRAINED_MODEL_NAME = './train_data_28k/checkpoint-2500/'
 bert_model = BertModel.from_pretrained(PRE_TRAINED_MODEL_NAME)
 
 last_hidden_state, pooled_output = bert_model(
@@ -178,6 +187,8 @@ class SentimentClassifier(nn.Module):
     super(SentimentClassifier, self).__init__()
     self.bert = BertModel.from_pretrained(PRE_TRAINED_MODEL_NAME, return_dict=False)
     self.drop = nn.Dropout(p=0.3)
+    print(self.bert.config.hidden_size)
+    print(n_classes)
     self.out = nn.Linear(self.bert.config.hidden_size, n_classes)
   
   def forward(self, input_ids, attention_mask):
@@ -187,6 +198,7 @@ class SentimentClassifier(nn.Module):
     )
     output = self.drop(pooled_output)
     return self.out(output)
+
 
 model = SentimentClassifier(len(class_names))
 model = model.to(device)
@@ -351,7 +363,7 @@ y_review_texts, y_pred, y_pred_probs, y_test = get_predictions(
   test_data_loader
 )
 
-print(classification_report(y_test, y_pred, target_names=class_names))
+#print(classification_report(y_test, y_pred, target_names=class_names))
 
 def show_confusion_matrix(confusion_matrix):
   hmap = sns.heatmap(confusion_matrix, annot=True, fmt="d", cmap="Blues")
@@ -376,6 +388,13 @@ print()
 print(f'True sentiment: {class_names[true_sentiment]}')
 
 
+### Confidence of each sentiment on our model
+sns.barplot(x='values', y='class_names', data=pred_df, orient='h')
+plt.ylabel('sentiment')
+plt.xlabel('probability')
+plt.xlim([0, 1]);
+
+
 ### Predicting on Raw Text
 
 review_text = "I love completing my todos! Best app ever!!!"
@@ -395,5 +414,6 @@ output = model(input_ids, attention_mask)
 _, prediction = torch.max(output, dim=1)
 print(f'Review text: {review_text}')
 print(f'Sentiment  : {class_names[prediction]}')
+
 
 
