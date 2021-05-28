@@ -30,8 +30,6 @@ def to_sentiment(rating):
 #     return 2
 
 df['sentiment'] = df.score.apply(to_sentiment)
-print("------------")
-print(df['sentiment'])
 class_names = [0,1,2,3,4] #['negative', 'neutral', 'positive'] #[1,2,3,4,5] #[0,1,2,3,4] #
 ax = sns.countplot(df.sentiment)
 plt.xlabel('review sentiment')
@@ -187,8 +185,6 @@ class SentimentClassifier(nn.Module):
     super(SentimentClassifier, self).__init__()
     self.bert = BertModel.from_pretrained(PRE_TRAINED_MODEL_NAME, return_dict=False)
     self.drop = nn.Dropout(p=0.3)
-    print(self.bert.config.hidden_size)
-    print(n_classes)
     self.out = nn.Linear(self.bert.config.hidden_size, n_classes)
   
   def forward(self, input_ids, attention_mask):
